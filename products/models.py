@@ -12,7 +12,7 @@ class Category(models.Model):
         ordering = ('-name',)
 
     # def get_absolute_url(self):
-    #     return reverse("model_detail", kwargs={"slug": self.slug})
+    #     return reverse("shop", kwargs={"slug": self.slug})
 
     def save(self, *args, **kwargs):
         if not self.slug:

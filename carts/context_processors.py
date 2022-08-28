@@ -1,5 +1,4 @@
 from .models import Cart
-from django.shortcuts import get_object_or_404, HttpResponse
 
 
 def cart_globally(request):

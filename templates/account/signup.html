@@ -1,9 +1,11 @@
 {% extends 'base.html' %}
 
+{% block title %}Signup Page{% endblock title %}
+
 {% block content %}
 <div class="max-w-lg mx-auto flex flex-wrap p-6">
     <div class="w-full bg-gray-100 p-6 rounded-xl">
-        <h1 class="mb-6 text-2xl">Sign up</h1>
+        <h1 class="mb-6 text-2xl">Signup</h1>
 
         <form method="post" action={% url 'account_signup' %} class="space-y-3">
             {% csrf_token %}

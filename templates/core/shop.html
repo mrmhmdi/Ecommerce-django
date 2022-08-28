@@ -22,6 +22,7 @@
 
             <h3 class='mt-6 mb-3 text-xl uppercase'>Categories</h3>
             <ul class='space-y-2'>
+                <li class={% if active_category %}'text-gray-500'{% else %}'text-red-500'{% endif %}><a href="{% url 'shop' %}">All Categories</a></li>
                 {% for category in categories %}
                     {% if active_category == category.slug %}
                         <li class='text-red-500'><a href="{% url 'shop' %}?cat={{ category.slug }}">{{category.name}}</a></li>

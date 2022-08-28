@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% block title %}Product detail{% endblock title %}
+{% block title %} {{ product.name|capfirst }} Detail{% endblock title %}
 
 {% block content %}
 <div class='max-w-6xl mx-auto flex flex-wrap items-start py-6 px-6 xl:px-0'>
@@ -15,7 +15,13 @@
         <h1 class='text-2xl'>{{ product.name }}</h1>
         <p class='mt-1 text-gray-400'>${{ product.price }}</p>
         <p class='mt-6 text-gray-700'>{{product.description }}</p>
-        {% include 'partials/product_add_to_cart.html' %}
+        <a 
+            href=""
+            class='mt-6 inline-block px-8 py-4 rounded-xl bg-red-400 text-white hover:bg-red-700'
+            hx-get={% url 'add_to_cart' product.slug%}
+            hx-target='#menu-cart-button'
+            hx-swap='outerHTML'
+        >
             Add to cart
         </a>
     </div>

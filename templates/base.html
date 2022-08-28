@@ -21,10 +21,10 @@
 
             <div class='menu-right flex items-center space-x-4'>
                 <ul class='flex items-center space-x-4'>
-                    <li>
-                        {% include 'carts/menu_cart.html' %}
-                    </li>
                     {% if user.is_authenticated %}
+                        <li>
+                            {% include 'carts/menu_cart.html' %}
+                        </li>
                         <li>
                             <a href="#">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">

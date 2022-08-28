@@ -163,3 +163,5 @@ data
 staticfiles
 docker-compose-prod.yml
 .vscode
+media/
+.media/

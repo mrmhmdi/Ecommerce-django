@@ -15,17 +15,24 @@
         <h1 class='text-2xl'>{{ product.name }}</h1>
         <p class='mt-1 text-gray-400'>${{ product.price }}</p>
         <p class='mt-6 text-gray-700'>{{product.description }}</p>
-        <a 
-            href=""
-            class='mt-6 inline-block px-8 py-4 rounded-xl bg-red-400 text-white hover:bg-red-700'
-            hx-get={% url 'add_to_cart' product.slug%}
-            hx-target='#menu-cart-button'
-            hx-swap='outerHTML'
-        >
-            Add to cart
-        </a>
+        {% if user.is_authenticated %}
+            <a 
+                href=""
+                class='mt-6 inline-block px-8 py-4 rounded-xl bg-red-400 text-white hover:bg-red-700'
+                hx-get={% url 'add_to_cart' product.slug%}
+                hx-target='#menu-cart-button'
+                hx-swap='outerHTML'
+            >
+                Add to cart
+            </a>
+        {% else %}
+            <p 
+                class='mt-6 inline-block px-8 py-4 rounded-xl bg-red-400 text-black hover:bg-red-500'
+            >
+                for add product to your cart please <a href={% url 'account_login' %} class='text-white'>Login</a>
+            </p>
+        {% endif %}
     </div>
-
 </div>
 
 {% endblock content %}

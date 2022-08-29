@@ -1,7 +1,12 @@
-from django.views.generic import ListView
+from django.views.generic import ListView, UpdateView, TemplateView
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import Q
+from django.urls import reverse
+from django.http.response import HttpResponseBadRequest
+from django.contrib.auth import get_user_model
 
 from products.models import Product, Category
+from carts.models import Cart
 # Create your views here.
 
 
@@ -35,3 +40,39 @@ class ShopView(ListView):
         context["categories"] = Category.objects.all()
         context['active_category'] = self.request.GET.get('cat', default='')
         return context
+
+
+class AccountTemplateView(LoginRequiredMixin, TemplateView):
+    template_name = 'core/myaccount.html'
+    http_method_names = ('get',)
+
+    def get_context_data(self, **kwargs):
+        user = self.request.user
+        context = super().get_context_data(**kwargs)
+        context['user_obj'] = user
+        context['carts'] = Cart.objects.filter(
+            user=user).prefetch_related('cartitem')
+        return context
+
+
+class EditAccountView(LoginRequiredMixin, UpdateView):
+    template_name = 'core/edit_myaccount.html'
+    fields = ('first_name', 'last_name', 'username', 'email', )
+    context_object_name = 'user_obj'
+    http_method_names = ('get', 'post')
+
+    def get(self, request, *args, **kwargs):
+        if kwargs['pk'] != request.user.username:
+            return HttpResponseBadRequest("Bad Request")
+        return super().get(request, *args, **kwargs)
+
+    def post(self, request, *args, **kwargs):
+        if kwargs['pk'] != request.user.username:
+            return HttpResponseBadRequest("Bad Request")
+        return super().post(request, *args, **kwargs)
+
+    def get_object(self):
+        return self.request.user
+
+    def get_success_url(self) -> str:
+        return reverse('myaccount')

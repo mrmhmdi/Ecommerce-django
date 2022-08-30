@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth import get_user_model
+from django.urls import reverse
 
 from products.models import Product
 # Create your models here.
@@ -27,6 +28,9 @@ class CartItem(models.Model):
 
     class Meta:
         unique_together = (('cart', 'product'))
+
+    def get_absolute_url(self):
+        return reverse("product_quantity", kwargs={"pk": self.id})
 
     def save(self, *args, **kwargs):
         self.total_price = self.product.price * self.quantity

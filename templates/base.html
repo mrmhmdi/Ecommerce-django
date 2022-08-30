@@ -22,7 +22,11 @@
             <div class='menu-right flex items-center space-x-4'>
                 <ul class='flex items-center space-x-4'>
                     {% if user.is_authenticated %}
-                        <li>
+                        <li
+                            hx-get=''
+                            hx-trigger='upade-menu-cart from:body'
+                            ht-swap='innerHTML'
+                        >
                             {% include 'carts/menu_cart.html' %}
                         </li>
                         <li>

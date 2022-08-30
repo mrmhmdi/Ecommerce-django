@@ -20,11 +20,28 @@
 
                     <hr>
 
-                    <div class="quantity mt-6 flex items-center space-x-4">
-                        <a href="#" class="p-3 bg-gray-100">-</a>
-                        <span>{{ cartitem.quantity }}</span>
-                        <a href="#" class="p-3 bg-gray-100">+</a>
+                    <div class="quantity mt-6 flex items-center space-x-4" >
+                        <a 
+                            href=''
+                            class="p-3 bg-gray-100"
+                            hx-get="{% url 'product_quantity' cartitem.id %}?increment=False"
+                            hx-target='#product-quantity-{{ cartitem.product.slug }}'
+                            hx-swap='outerHTML'
+                        >
+                            -
+                        </a>
+                        {% include 'carts/item_quantity.html' %}
+                        <a 
+                            href=''
+                            class="p-3 bg-gray-100"
+                            hx-get="{% url 'product_quantity' cartitem.id %}?increment=True"
+                            hx-target='#product-quantity-{{ cartitem.product.slug }}'
+                            hx-swap='outerHTML'
+                        >
+                            +
+                        </a>
                     </div>
+
                 </div>
             </div>
         {% endfor %}

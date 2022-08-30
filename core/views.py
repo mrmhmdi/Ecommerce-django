@@ -3,7 +3,6 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import Q
 from django.urls import reverse
 from django.http.response import HttpResponseBadRequest
-from django.contrib.auth import get_user_model
 
 from products.models import Product, Category
 from carts.models import Cart

@@ -1,4 +1,3 @@
-from urllib import request
 from django.shortcuts import render, get_object_or_404
 from django.views import View
 from django.views.generic import ListView, TemplateView
@@ -23,6 +22,25 @@ class AddToCartItem(View):
             cartitem.quantity = quantity+1
             cartitem.save()
         return render(request, 'carts/menu_cart.html')
+
+
+class ProductQuantityView(View):
+
+    def get(self, request, pk):
+        cartitem = get_object_or_404(CartItem, id=pk)
+        action = request.GET.get('increment')
+        response = render(request, 'carts/item_quantity.html',
+                          {'cartitem': cartitem})
+
+        if action == 'True':
+            cartitem.quantity += 1
+        else:
+            cartitem.quantity -= 1
+            if cartitem.quantity <= 0:
+                cartitem.delete()
+                return response
+        cartitem.save()
+        return response
 
 
 class CartItemListView(LoginRequiredMixin, ListView):

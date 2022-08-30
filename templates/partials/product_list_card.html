@@ -6,7 +6,7 @@
         <div class='pt-3 flex items-center justify-between'>
             <a href={{ product_url }}>{{ product.name }}</a>
             <a 
-                href={{ product_url }} 
+                href=''
                 class='text-blue-400 hover:text-blue-700'
                 hx-get={% url 'add_to_cart' product.slug%}
                 hx-target='#menu-cart-button'

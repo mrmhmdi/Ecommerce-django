@@ -12,6 +12,7 @@ class Order(models.Model):
     class OrderStatus(models.TextChoices):
         ORDERD = 'OR'
         SHIPPED = 'SP'
+        DELIVERD = 'DD'
 
     user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
     first_name = models.CharField(max_length=25)
@@ -24,7 +25,7 @@ class Order(models.Model):
     paid = models.BooleanField(default=False)
     paid_amaount = models.PositiveIntegerField()
     status = models.CharField(
-        max_length=25, choices=OrderStatus.choices, default=OrderStatus.ORDERD)
+        max_length=2, choices=OrderStatus.choices, default=OrderStatus.ORDERD)
 
     phoneNumberRegex = RegexValidator(regex=r"^\+?1?\d{8,15}$")
     phone = models.CharField(

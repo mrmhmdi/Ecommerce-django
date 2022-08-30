@@ -48,17 +48,7 @@ class CartItemListView(LoginRequiredMixin, ListView):
     context_object_name = 'cart'
 
     def get_queryset(self):
-        return CartItem.objects.filter(cart__user=self.request.user).prefetch_related('product')
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['total_price'] = get_object_or_404(
-            Cart, user=self.request.user, completed=False).total_price()
-        return context
-
-
-class CheckOutTemplateView(LoginRequiredMixin, TemplateView):
-    template_name = 'carts/checkout_page.html'
+        return CartItem.objects.filter(cart__user=self.request.user, cart__completed=False).prefetch_related('product')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

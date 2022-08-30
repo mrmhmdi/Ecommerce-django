@@ -5,7 +5,7 @@ from django.urls import reverse
 from django.http.response import HttpResponseBadRequest
 
 from products.models import Product, Category
-from carts.models import Cart
+from order.models import Order
 # Create your views here.
 
 
@@ -43,14 +43,13 @@ class ShopView(ListView):
 
 class AccountTemplateView(LoginRequiredMixin, TemplateView):
     template_name = 'core/myaccount.html'
-    http_method_names = ('get',)
 
     def get_context_data(self, **kwargs):
         user = self.request.user
         context = super().get_context_data(**kwargs)
         context['user_obj'] = user
-        context['carts'] = Cart.objects.filter(
-            user=user).prefetch_related('cartitem')
+        context['orders'] = Order.objects.filter(
+            user=user).prefetch_related('orderitem')
         return context
 
 

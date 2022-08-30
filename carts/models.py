@@ -16,7 +16,7 @@ class Cart(models.Model):
         return sum(price.total_price for price in self.cartitem.all())
 
     def __str__(self) -> str:
-        return str(self.user)
+        return f'{self.user} {self.completed}'
 
 
 class CartItem(models.Model):

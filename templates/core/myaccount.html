@@ -24,30 +24,30 @@
     <hr>
 
     <h2 class="my-6 text-xl">My orders</h2>
-    {% for cart in carts %}
+    {% for order in orders %}
     <div class="w-full mb-6 p-6 flex flex-wrap bg-gray-100 rounded-xl">
         <div class="mb-6 flex justify-between">
-            <a href="#">Cart ID: {{ cart.id }}</a>
+            <a href="#">Order ID: {{ order.id }}</a>
         </div>
 
         <div class="mb-6 w-full">
-            {% for cartitem in cart.cartitem.all %}
+            {% for orderitem in order.orderitem.all %}
             <div class="product mb-6 flex pr-6">
                 <a href="#" class="w-1/4">
-                    <img class="hover:shadow-lg rounded-xl" src="1.jpg">
+                    <img class="hover:shadow-lg rounded-xl" src={{ orderitem.product.get_thumbnail }}>
                 </a>
 
                 <div class="w-3/4 pl-6">
                     <div class="flex justify-between">
-                        <a href="#" class="text-lg">{{ cartitem.product.name }}</a>
+                        <a href="#" class="text-lg">{{ orderitem.product.name }}</a>
 
-                        <p class="mb-6 pt-1 text-gray-400">${{ cartitem.total_price }}</p>
+                        <p class="mb-6 pt-1 text-gray-400">${{ orderitem.price }}</p>
                     </div>
 
                     <hr>
 
                     <div class="mt-6">
-                        Quantity: {{ cartitem.quantity }}
+                        Quantity: {{ orderitem.quantity }}
                     </div>
                 </div>
             </div>
@@ -55,9 +55,9 @@
         </div>
 
         <div>
-            <p class="text-lg">Date: {{ cart.created_at|naturaltime }}</p>
-            <p class="text-lg">Total: ${{ cart.total_price }}</p>
-            <p class="text-lg {% if not cart.completed %}text-red-600{% endif %}">completed: {{ cart.completed|yesno }}</p>
+            <p class="text-lg">Date: {{ order.create_at|naturaltime }}</p>
+            <p class="text-lg {% if not order.paid %}text-red-600{% endif %}">Paid: {{ order.paid|yesno }}</p>
+            <p class="text-lg">Date: {{ order.status }}</p>
         </div>
     </div>
     {% endfor %}

@@ -55,7 +55,7 @@
             <span>${{ total_price }}</span>
         </div>
 
-        <a href="{% url 'createorder'%}?price={{ total_price }}" class="inline-block px-8 py-4 rounded-xl bg-red-500 hover:bg-red-700 text-white">Checkout</a>
+        <a href="{% url 'createorder' %}" class="inline-block px-8 py-4 rounded-xl bg-red-500 hover:bg-red-700 text-white">Checkout</a>
     </div>
 </div>
 {% endblock content %}

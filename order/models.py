@@ -30,6 +30,9 @@ class Order(models.Model):
     phone = models.CharField(
         validators=[phoneNumberRegex], max_length=16, blank=False)
 
+    class Meta:
+        ordering = ('-create_at',)
+
 
 class OrderItem(models.Model):
     order = models.ForeignKey(

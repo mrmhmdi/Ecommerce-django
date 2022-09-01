@@ -43,11 +43,13 @@ INSTALLED_APPS = [
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
+    'azbankgateways',
     # local
     'core',
     'products',
     'carts',
     'order',
+    'payment',
 ]
 
 MIDDLEWARE = [
@@ -164,3 +166,24 @@ MEDIA_ROOT = 'media/'
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# peyment settings
+AZ_IRANIAN_BANK_GATEWAYS = {
+    'GATEWAYS': {
+        'IDPAY': {
+            'MERCHANT_CODE': '',
+            'METHOD': 'POST',  # GET or POST
+            'X_SANDBOX': 1,  # 0 disable, 1 active
+        },
+    },
+    'IS_SAMPLE_FORM_ENABLE': True,  # اختیاری و پیش فرض غیر فعال است
+    'DEFAULT': 'IDPAY',
+    'CURRENCY': 'IRT',  # اختیاری
+    'TRACKING_CODE_QUERY_PARAM': 'tc',  # اختیاری
+    'TRACKING_CODE_LENGTH': 16,  # اختیاری
+    'SETTING_VALUE_READER_CLASS': 'azbankgateways.readers.DefaultReader',  # اختیاری
+    'BANK_PRIORITIES': [],  # اختیاری
+}
+
+# USE_X_FORWARDED_HOST = True
+# SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')

@@ -54,10 +54,22 @@
             {% endfor %}
         </div>
 
-        <div>
-            <p class="text-lg">Date: {{ order.create_at|naturaltime }}</p>
-            <p class="text-lg {% if not order.paid %}text-red-600{% endif %}">Paid: {{ order.paid|yesno }}</p>
-            <p class="text-lg">Date: {{ order.status }}</p>
+        <div class="flex-wrap w-full lg:w-3/4">
+            <div>
+                <p class="text-lg">Date: {{ order.create_at|naturaltime }}</p>
+                <p class="text-lg {% if not order.paid %}text-red-600{% endif %}">Paid: {{ order.paid|yesno }}</p>
+                <p class="text-lg">Status: {{ order.status }}</p>
+            </div>
+            <hr>
+            <div class="w-full w-1/4 p-6">
+                <div class="mb-6 flex">
+                    <span class="font-semibold">Total</span>
+                    <span>${{ order.paid_amount}}</span>
+                </div>
+                {% if order.paid == False %}
+                    <a href="{% url 'bank-gateway' %}?ord-pk={{ order.id }}" class="inline-block px-6 py-4 rounded-xl bg-green-500 hover:bg-green-700 text-white">Pay</a>
+                {% endif %}
+            </div>
         </div>
     </div>
     {% endfor %}

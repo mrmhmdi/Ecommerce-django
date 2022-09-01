@@ -18,9 +18,13 @@ from django.urls import path, include
 from django.conf.urls.static import static
 from django.conf import settings
 
+from azbankgateways.urls import az_bank_gateways_urls
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include('allauth.urls')),
+    path('bankgateways/', az_bank_gateways_urls()),
+    path('', include('payment.urls')),
     path('', include('core.urls')),
     path('products/', include('products.urls')),
     path('cart/', include('carts.urls')),

@@ -21,11 +21,16 @@ class CreateOrder(View):
         cart = get_object_or_404(
             Cart, user=self.request.user, completed=False)
         cartitems = cart.cartitem.select_related('product').all()
+        print(cartitems)
         if cartitems:
             form = OrderModelForm(request.POST)
+            for i in form:
+                print(i)
             if form.is_valid():
+                print('0-0')
                 order = form.save(commit=False)
                 order.user = request.user
+                order.paid_amount = cart.total_price()
                 order.save()
             else:
                 return redirect('createorder')

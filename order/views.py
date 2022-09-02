@@ -30,7 +30,7 @@ class CreateOrder(View):
                 print('0-0')
                 order = form.save(commit=False)
                 order.user = request.user
-                order.paid_amount = cart.total_price()
+                order.total_price = cart.total_price()
                 order.save()
             else:
                 return redirect('createorder')

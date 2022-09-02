@@ -22,7 +22,7 @@ class Order(models.Model):
     place = models.CharField(max_length=255, blank=False)
     create_at = models.DateTimeField(auto_now_add=True)
     paid = models.BooleanField(default=False,)
-    paid_amount = models.PositiveIntegerField(null=True)
+    total_price = models.IntegerField(default=0)
     status = models.CharField(
         max_length=2, choices=OrderStatus.choices, default=OrderStatus.ORDERD)
 
@@ -30,6 +30,7 @@ class Order(models.Model):
     phone = models.CharField(
         validators=[phoneNumberRegex], max_length=16, blank=False)
     tracking_code = models.PositiveBigIntegerField(default=0000)
+    paid_amount = models.PositiveIntegerField(default=0000)
 
     class Meta:
         ordering = ('-create_at',)

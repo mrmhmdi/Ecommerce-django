@@ -4,7 +4,7 @@ from django.http.response import HttpResponseBadRequest
 
 from .forms import OrderModelForm
 from .models import OrderItem
-from carts.models import CartItem, Cart
+from carts.models import Cart
 # Create your views here.
 
 

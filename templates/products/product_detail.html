@@ -33,6 +33,47 @@
             </p>
         {% endif %}
     </div>
+
+    <div class="w-full mt-6">
+        <h2 class="text-xl">Reviews</h2>
+
+        {% if request.user.is_authenticated %}
+            <form method="post" action="." class="mt-6 mb-6 p-6 bg-gray-100 rounded-xl">
+                {% csrf_token %}
+
+                <div>
+                    <label for='id_rate'>Rating</label><br>
+                    <select id='id_rate' name="rate">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3" selected>3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label for='id_body'>Comment</label><br>
+                    <textarea id='id_body' name="body" class='w-full p-5 rounded-xl' required></textarea>
+                </div>
+
+                <div>
+                    <button class='inline-block px-8 py-4 rounded-xl bg-green-500 hover:bg-green-700 text-white'>Submit</button>
+                </div>
+            </form>
+        {% endif %}
+
+        {% for comment in comments %}
+            <div class="px-4 py-6 bg-gray-100 rounded-xl mb-4">
+                <strong>Rating:</strong> {{ comment.rate }}/6<br>
+                <strong>Date:</strong> {{ comment.created_at|date:"Y-m-d" }}<br>
+                <strong>Comment:</strong><br>
+                {{ comment.body }}
+            </div>
+        {% endfor %}
+    </div>
+
 </div>
 
 {% endblock content %}

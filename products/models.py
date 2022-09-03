@@ -2,6 +2,7 @@ from django.db import models
 from django.template.defaultfilters import slugify
 from django.urls import reverse
 from django.core.files import File
+from django.contrib.auth import get_user_model
 
 from PIL import Image
 from io import BytesIO
@@ -61,7 +62,7 @@ class Product(models.Model):
             else:
                 return 'https://via.placeholder.com/240x240x.jpg'
 
-    def _create_thumbnail(self, image, size=(300, 300)):
+    def _create_thumbnail(self, image, size=(240, 240)):
         img = Image.open(image)
         img.convert('RGB')
         img.thumbnail(size)
@@ -74,3 +75,12 @@ class Product(models.Model):
 
     def __str__(self) -> str:
         return self.name
+
+
+class Comment(models.Model):
+    user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
+    product = models.ForeignKey(
+        Product, on_delete=models.CASCADE, related_name='comments')
+    created_at = models.DateTimeField(auto_now_add=True)
+    rate = models.IntegerField(default=3)
+    body = models.TextField(null=True)

@@ -1,6 +1,6 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.views import View
-from django.views.generic import ListView, TemplateView
+from django.views.generic import ListView
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 from .models import Cart, CartItem
@@ -29,8 +29,6 @@ class ProductQuantityView(View):
     def get(self, request, pk):
         cartitem = get_object_or_404(CartItem, id=pk)
         action = request.GET.get('increment')
-        response = render(request, 'carts/item_quantity.html',
-                          {'cartitem': cartitem})
 
         if action == 'True':
             cartitem.quantity += 1
@@ -38,9 +36,11 @@ class ProductQuantityView(View):
             cartitem.quantity -= 1
             if cartitem.quantity <= 0:
                 cartitem.delete()
-                return response
+                return render(request, 'carts/item_quantity.html',
+                              {'cartitem': cartitem})
         cartitem.save()
-        return response
+        return render(request, 'carts/item_quantity.html',
+                      {'cartitem': cartitem})
 
 
 class CartItemListView(LoginRequiredMixin, ListView):

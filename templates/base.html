@@ -24,7 +24,7 @@
                     {% if user.is_authenticated %}
                         <li
                             hx-get=''
-                            hx-trigger='upade-menu-cart from:body'
+                            hx-trigger='update-menu-cart from:body'
                             ht-swap='innerHTML'
                         >
                             {% include 'carts/menu_cart.html' %}
@@ -76,5 +76,6 @@
     </footer>
 
     <script src="https://unpkg.com/htmx.org@1.8.0" integrity="sha384-cZuAZ+ZbwkNRnrKi05G/fjBX+azI9DNOkNYysZ0I/X5ZFgsmMiBXgDZof30F5ofc" crossorigin="anonymous"></script>
+    {% block js_script %}{% endblock js_script %}
 </body>
 </html>

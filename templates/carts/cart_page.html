@@ -20,7 +20,7 @@
 
                     <hr>
 
-                    <div class="quantity mt-6 flex items-center space-x-4" >
+                    <div onclick='minusclick()' class="quantity mt-6 flex items-center space-x-4">
                         <a 
                             href=''
                             class="p-3 bg-gray-100"
@@ -59,3 +59,15 @@
     </div>
 </div>
 {% endblock content %}
+
+{% block js_script %}
+    <script>
+        function minusclick() {
+            document.querySelectorAll('.quantity').forEach(item => {
+                if (item.children[1].innerHTML == 0){
+                    item.parentElement.parentElement.remove()
+                }
+            })
+        }
+    </script>
+{% endblock js_script %}
